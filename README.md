@@ -39,8 +39,7 @@ Component tích hợp Bot Zalo chính thức cho Home Assistant
 2. Sao chép thư mục `custom_components/bot_zalo` vào thư mục `custom_components` trong cài đặt Home Assistant của bạn.
 3. Khởi động lại Home Assistant.
 4. Thêm tích hợp: Cài đặt > Thiết bị & Dịch vụ > Thêm tích hợp > Bot Zalo.
-5. Chọn tỉnh/thành phố và quận/huyện mà bạn muốn hiển thị thông tin thời tiết.
-6. Điền token
+5. Điền token
 
 ## Sử dụng
 
