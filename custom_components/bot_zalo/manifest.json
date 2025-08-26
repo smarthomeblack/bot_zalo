@@ -1,0 +1,14 @@
+{
+  "domain": "bot_zalo",
+  "name": "Bot Zalo",
+  "codeowners": [
+      "@smarthomeblack"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/smarthomeblack/bot_zalo",
+  "iot_class": "cloud_push",
+  "issue_tracker": "https://github.com/smarthomeblack/bot_zalo/issues",
+  "requirements": ["requests"],
+  "version": "2025.8.26"
+}

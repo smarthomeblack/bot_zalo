@@ -1,0 +1,21 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Bot Zalo Configuration",
+        "description": "Enter your Bot Token to set up the integration",
+        "data": {
+          "bot_token": "Bot Token"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to Zalo Bot API. Please check your internet connection.",
+      "invalid_auth": "Invalid Bot Token. Please check your token from Zalo Developer Console.",
+      "unknown": "Unknown error occurred. Please try again."
+    },
+    "abort": {
+      "already_configured": "A bot with this token is already configured."
+    }
+  }
+}

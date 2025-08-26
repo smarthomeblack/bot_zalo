@@ -1,0 +1,89 @@
+# Service definitions for Bot Zalo services
+
+send_message:
+  name: Send Message
+  description: Send a text message to a chat
+  fields:
+    chat_id:
+      name: Chat ID
+      description: The ID of the chat to send the message to
+      required: true
+      selector:
+        text:
+    text:
+      name: Text
+      description: The text message to send
+      required: true
+      selector:
+        text:
+          multiline: true
+
+send_photo:
+  name: Send Photo
+  description: Send a photo to a chat
+  fields:
+    chat_id:
+      name: Chat ID
+      description: The ID of the chat to send the photo to
+      required: true
+      selector:
+        text:
+    photo:
+      name: Photo URL
+      description: The URL of the photo to send
+      required: true
+      selector:
+        text:
+    caption:
+      name: Caption
+      description: Optional caption for the photo
+      required: false
+      selector:
+        text:
+          multiline: true
+
+send_sticker:
+  name: Send Sticker
+  description: Send a sticker to a chat
+  fields:
+    chat_id:
+      name: Chat ID
+      description: The ID of the chat to send the sticker to
+      required: true
+      selector:
+        text:
+    sticker:
+      name: Sticker ID
+      description: The ID of the sticker to send
+      required: true
+      selector:
+        text:
+
+set_webhook:
+  name: Set Webhook
+  description: Set the webhook URL for receiving messages
+  fields:
+    webhook_url:
+      name: Webhook URL
+      description: The URL where Zalo will send webhook notifications
+      required: true
+      selector:
+        text:
+    secret_token:
+      name: Secret Token
+      description: Optional secret token for webhook security
+      required: false
+      selector:
+        text:
+
+delete_webhook:
+  name: Delete Webhook
+  description: Delete the current webhook
+
+get_me:
+  name: Get Bot Information
+  description: Get information about the bot
+
+get_webhook_info:
+  name: Get Webhook Information
+  description: Get information about the current webhook
