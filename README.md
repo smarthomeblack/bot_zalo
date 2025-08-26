@@ -16,7 +16,9 @@ Component tích hợp Bot Zalo chính thức cho Home Assistant
 - Get thông tin Bot
 
 ## Cài đặt
+### Lấy token bot zalo
 
+- Đọc kỹ hướng dẫn chính thức của Zalo: https://bot.zapps.me/docs/create-bot/
 ### Cài đặt qua HACS (khuyến nghị)
 
 #### Phương pháp 1: Nút "Thêm vào HACS" (đơn giản nhất)
