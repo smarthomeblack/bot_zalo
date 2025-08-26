@@ -6,6 +6,7 @@ from .get_me import GetMeFeature
 from .set_webhook import SetWebhookFeature
 from .delete_webhook import DeleteWebhookFeature
 from .get_webhook_info import GetWebhookInfoFeature
+from .get_updates import GetUpdatesFeature
 from .send_message import SendMessageFeature
 from .send_photo import SendPhotoFeature
 from .send_sticker import SendStickerFeature
@@ -25,6 +26,7 @@ class ZaloBotAPI:
         self._set_webhook = SetWebhookFeature(bot_token)
         self._delete_webhook = DeleteWebhookFeature(bot_token)
         self._get_webhook_info = GetWebhookInfoFeature(bot_token)
+        self._get_updates = GetUpdatesFeature(bot_token)
         self._send_message = SendMessageFeature(bot_token)
         self._send_photo = SendPhotoFeature(bot_token)
         self._send_sticker = SendStickerFeature(bot_token)
@@ -48,6 +50,11 @@ class ZaloBotAPI:
     async def get_webhook_info(self) -> Dict[str, Any]:
         """Get webhook information."""
         return await self._get_webhook_info.execute()
+
+    # Feature: getUpdates
+    async def get_updates(self, timeout: int = 30) -> Dict[str, Any]:
+        """Get updates from Zalo Bot API."""
+        return await self._get_updates.execute(timeout)
 
     # Feature: sendMessage
     async def send_message(self, chat_id: str, text: str) -> Dict[str, Any]:

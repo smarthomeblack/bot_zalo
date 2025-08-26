@@ -13,6 +13,7 @@ SERVICE_SET_WEBHOOK = "set_webhook"
 SERVICE_DELETE_WEBHOOK = "delete_webhook"
 SERVICE_GET_ME = "get_me"
 SERVICE_GET_WEBHOOK_INFO = "get_webhook_info"
+SERVICE_GET_UPDATES = "get_updates"
 
 # Attributes
 ATTR_CHAT_ID = "chat_id"
@@ -22,3 +23,4 @@ ATTR_CAPTION = "caption"
 ATTR_STICKER = "sticker"
 ATTR_WEBHOOK_URL = "webhook_url"
 ATTR_SECRET_TOKEN = "secret_token"
+ATTR_TIMEOUT = "timeout"

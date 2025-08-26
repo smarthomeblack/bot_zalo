@@ -12,13 +12,15 @@ from .const import (
     SERVICE_DELETE_WEBHOOK,
     SERVICE_GET_ME,
     SERVICE_GET_WEBHOOK_INFO,
+    SERVICE_GET_UPDATES,
     ATTR_CHAT_ID,
     ATTR_TEXT,
     ATTR_PHOTO,
     ATTR_CAPTION,
     ATTR_STICKER,
     ATTR_WEBHOOK_URL,
-    ATTR_SECRET_TOKEN
+    ATTR_SECRET_TOKEN,
+    ATTR_TIMEOUT
 )
 from .api import ZaloBotAPI
 
@@ -43,7 +45,11 @@ SEND_STICKER_SCHEMA = vol.Schema({
 
 SET_WEBHOOK_SCHEMA = vol.Schema({
     vol.Required(ATTR_WEBHOOK_URL): cv.url,
-    vol.Optional(ATTR_SECRET_TOKEN): cv.string,
+    vol.Required(ATTR_SECRET_TOKEN): cv.string,
+})
+
+GET_UPDATES_SCHEMA = vol.Schema({
+    vol.Optional(ATTR_TIMEOUT, default=30): cv.positive_int,
 })
 
 
@@ -131,7 +137,7 @@ async def async_setup_services(hass: HomeAssistant, api: ZaloBotAPI) -> None:
     async def set_webhook_service(call: ServiceCall) -> ServiceResponse:
         """Handle set_webhook service call."""
         webhook_url = call.data[ATTR_WEBHOOK_URL]
-        secret_token = call.data.get(ATTR_SECRET_TOKEN)
+        secret_token = call.data[ATTR_SECRET_TOKEN]
 
         try:
             result = await api.set_webhook(webhook_url, secret_token)
@@ -210,6 +216,27 @@ async def async_setup_services(hass: HomeAssistant, api: ZaloBotAPI) -> None:
                 "error": str(err)
             }
 
+    async def get_updates_service(call: ServiceCall) -> ServiceResponse:
+        """Handle get_updates service call."""
+        timeout = call.data.get(ATTR_TIMEOUT, 30)
+
+        try:
+            result = await api.get_updates(timeout)
+            _LOGGER.info("Updates retrieved: %s", result)
+            return {
+                "success": result.get("ok", False),
+                "timeout": timeout,
+                "updates_count": len(result.get("result", [])),
+                "full_response": result
+            }
+        except Exception as err:
+            _LOGGER.error("Failed to get updates: %s", err)
+            return {
+                "success": False,
+                "timeout": timeout,
+                "error": str(err)
+            }
+
     # Register services
     hass.services.async_register(
         DOMAIN,
@@ -261,6 +288,14 @@ async def async_setup_services(hass: HomeAssistant, api: ZaloBotAPI) -> None:
         DOMAIN,
         SERVICE_GET_WEBHOOK_INFO,
         get_webhook_info_service,
+        supports_response=SupportsResponse.ONLY
+    )
+
+    hass.services.async_register(
+        DOMAIN,
+        SERVICE_GET_UPDATES,
+        get_updates_service,
+        schema=GET_UPDATES_SCHEMA,
         supports_response=SupportsResponse.ONLY
     )
 

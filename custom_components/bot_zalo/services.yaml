@@ -71,8 +71,8 @@ set_webhook:
         text:
     secret_token:
       name: Secret Token
-      description: Optional secret token for webhook security
-      required: false
+      description: Secret token for webhook security
+      required: true
       selector:
         text:
 
@@ -87,3 +87,18 @@ get_me:
 get_webhook_info:
   name: Get Webhook Information
   description: Get information about the current webhook
+
+get_updates:
+  name: Get Updates
+  description: Get updates from Zalo Bot API
+  fields:
+    timeout:
+      name: Timeout
+      description: "Timeout in seconds for long polling (default: 30)"
+      required: false
+      default: 30
+      selector:
+        number:
+          min: 1
+          max: 120
+          unit_of_measurement: seconds

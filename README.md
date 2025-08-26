@@ -46,6 +46,44 @@ Component tích hợp Bot Zalo chính thức cho Home Assistant
 
 Sau khi cài đặt, sẽ có các Services để bạn có thể sử dụng
 
+## Cách lấy Chat ID
+
+### Bước 1: Sử dụng Service get_updates để lấy danh sách tin nhắn
+
+![Bước 1: Gọi service get_updates](img/1.png)
+
+1. Vào **Developer Tools** → **Services**
+2. Chọn service `bot_zalo.get_updates`
+3. Nhấn **Call Service**
+4. Gửi tin nhắn bất kỳ tới bot zalo(chú ý thời gian chờ mặc định là 30s)
+
+### Bước 2: Tìm Chat ID trong response
+
+![Bước 2: Tìm chat_id trong response](img/2.png)
+
+Trong phần `full_response` → `result`, bạn sẽ thấy:
+```json
+{
+  "result": [
+    {
+      "message": {
+        "chat": {
+          "id": "1234567890",  // ← Đây là chat_id bạn cần
+          "type": "private"
+        },
+        "from": {
+          "id": "user_id",
+          "first_name": "Tên người dùng"
+        },
+        "text": "Hello Bot"
+      }
+    }
+  ]
+}
+```
+
+Copy `chat.id` này để sử dụng trong các service khác như `send_message`, `send_photo`, v.v.
+
 
 ## Phát triển trong tương lai
 
