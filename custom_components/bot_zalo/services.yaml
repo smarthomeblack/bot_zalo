@@ -59,6 +59,26 @@ send_sticker:
       selector:
         text:
 
+send_chat_action:
+  name: Send Chat Action
+  description: Send a chat action (e.g., typing indicator) to a chat
+  fields:
+    chat_id:
+      name: Chat ID
+      description: The ID of the chat to send the action to
+      required: true
+      selector:
+        text:
+    action:
+      name: Action
+      description: The action to send (support only typing)
+      required: true
+      default: typing
+      selector:
+        select:
+          options:
+            - typing
+
 set_webhook:
   name: Set Webhook
   description: Set the webhook URL for receiving messages

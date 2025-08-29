@@ -10,6 +10,7 @@ from .get_updates import GetUpdatesFeature
 from .send_message import SendMessageFeature
 from .send_photo import SendPhotoFeature
 from .send_sticker import SendStickerFeature
+from .send_chat_action import SendChatActionFeature
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -30,6 +31,7 @@ class ZaloBotAPI:
         self._send_message = SendMessageFeature(bot_token)
         self._send_photo = SendPhotoFeature(bot_token)
         self._send_sticker = SendStickerFeature(bot_token)
+        self._send_chat_action = SendChatActionFeature(bot_token)
 
     # Feature: getMe
     async def get_me(self) -> Dict[str, Any]:
@@ -70,3 +72,8 @@ class ZaloBotAPI:
     async def send_sticker(self, chat_id: str, sticker: str) -> Dict[str, Any]:
         """Send sticker to chat."""
         return await self._send_sticker.execute(chat_id, sticker)
+
+    # Feature: sendChatAction
+    async def send_chat_action(self, chat_id: str, action: str) -> Dict[str, Any]:
+        """Send chat action to indicate bot activity."""
+        return await self._send_chat_action.execute(chat_id, action)

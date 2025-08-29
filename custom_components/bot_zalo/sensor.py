@@ -161,5 +161,5 @@ class BotZaloWebhookSensor(CoordinatorEntity, SensorEntity):
             "name": "Bot Zalo",
             "manufacturer": "Zalo",
             "model": "Official Account Bot",
-            "sw_version": "1.0.0",
+            "sw_version": "2025.8.30",
         }

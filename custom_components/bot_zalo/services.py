@@ -8,6 +8,7 @@ from .const import (
     SERVICE_SEND_MESSAGE,
     SERVICE_SEND_PHOTO,
     SERVICE_SEND_STICKER,
+    SERVICE_SEND_CHAT_ACTION,
     SERVICE_SET_WEBHOOK,
     SERVICE_DELETE_WEBHOOK,
     SERVICE_GET_ME,
@@ -18,6 +19,7 @@ from .const import (
     ATTR_PHOTO,
     ATTR_CAPTION,
     ATTR_STICKER,
+    ATTR_ACTION,
     ATTR_WEBHOOK_URL,
     ATTR_SECRET_TOKEN,
     ATTR_TIMEOUT
@@ -41,6 +43,11 @@ SEND_PHOTO_SCHEMA = vol.Schema({
 SEND_STICKER_SCHEMA = vol.Schema({
     vol.Required(ATTR_CHAT_ID): cv.string,
     vol.Required(ATTR_STICKER): cv.string,
+})
+
+SEND_CHAT_ACTION_SCHEMA = vol.Schema({
+    vol.Required(ATTR_CHAT_ID): cv.string,
+    vol.Required(ATTR_ACTION): cv.string,
 })
 
 SET_WEBHOOK_SCHEMA = vol.Schema({
@@ -131,6 +138,29 @@ async def async_setup_services(hass: HomeAssistant, api: ZaloBotAPI) -> None:
                 "success": False,
                 "chat_id": chat_id,
                 "sticker": sticker,
+                "error": str(err)
+            }
+
+    async def send_chat_action_service(call: ServiceCall) -> ServiceResponse:
+        """Handle send_chat_action service call."""
+        chat_id = call.data[ATTR_CHAT_ID]
+        action = call.data[ATTR_ACTION]
+
+        try:
+            result = await api.send_chat_action(chat_id, action)
+            _LOGGER.info("Chat action sent successfully: %s", result)
+            return {
+                "success": result.get("ok", False),
+                "chat_id": chat_id,
+                "action": action,
+                "full_response": result
+            }
+        except Exception as err:
+            _LOGGER.error("Failed to send chat action: %s", err)
+            return {
+                "success": False,
+                "chat_id": chat_id,
+                "action": action,
                 "error": str(err)
             }
 
@@ -259,6 +289,14 @@ async def async_setup_services(hass: HomeAssistant, api: ZaloBotAPI) -> None:
         SERVICE_SEND_STICKER,
         send_sticker_service,
         schema=SEND_STICKER_SCHEMA,
+        supports_response=SupportsResponse.ONLY
+    )
+
+    hass.services.async_register(
+        DOMAIN,
+        SERVICE_SEND_CHAT_ACTION,
+        send_chat_action_service,
+        schema=SEND_CHAT_ACTION_SCHEMA,
         supports_response=SupportsResponse.ONLY
     )
 

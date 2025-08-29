@@ -10,5 +10,5 @@
   "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/smarthomeblack/bot_zalo/issues",
   "requirements": ["requests"],
-  "version": "2025.8.26"
+  "version": "2025.8.30"
 }
