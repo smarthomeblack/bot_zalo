@@ -14,7 +14,7 @@ Component tích hợp Bot Zalo chính thức cho Home Assistant
 - Update webhook
 - Get webhook info
 - Get thông tin Bot
-
+- Gửi thông báo đang soạn tin nhắn
 ## Cài đặt
 ### Lấy token bot zalo
 
